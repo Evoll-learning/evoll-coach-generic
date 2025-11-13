@@ -124,7 +124,7 @@ const OnboardingPage = () => {
         return (
           <div className="space-y-6 animate-fade-in">
             <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-2">Tu Rol en Orenes</h2>
+              <h2 className="text-3xl font-bold text-slate-900 mb-2">Tu Rol de Liderazgo</h2>
               <p className="text-slate-600">Ayuda a personalizar tu experiencia de aprendizaje</p>
             </div>
             <div className="space-y-4">
@@ -235,11 +235,11 @@ const OnboardingPage = () => {
           <div className="space-y-6 animate-fade-in">
             <div>
               <h2 className="text-3xl font-bold text-slate-900 mb-2">Compromiso con Valores</h2>
-              <p className="text-slate-600">Alineación con los valores de Orenes</p>
+              <p className="text-slate-600">Alineación con tus valores de liderazgo</p>
             </div>
             <Card className="border-2 border-blue-100 bg-blue-50/50 mb-6">
               <CardHeader>
-                <CardTitle className="text-blue-900">Valores Orenes</CardTitle>
+                <CardTitle className="text-blue-900">Valores de Liderazgo</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4">
@@ -265,7 +265,7 @@ const OnboardingPage = () => {
                 ¿Cómo te comprometes a vivir estos valores en tu liderazgo?
               </label>
               <Textarea 
-                placeholder="Describe tu compromiso personal con los valores de Orenes..."
+                placeholder="Describe tu compromiso personal con el desarrollo de liderazgo..."
                 value={formData.valores_compromiso}
                 onChange={(e) => setFormData({...formData, valores_compromiso: e.target.value})}
                 rows={5}

@@ -79,11 +79,11 @@ const LandingPage = () => {
     }
   ];
 
-  const valoresOrenes = [
-    { icon: Clock, titulo: 'Experiencia', descripcion: '56 años liderando el sector del ocio y entretenimiento en España' },
-    { icon: Shield, titulo: 'Confianza', descripcion: 'Transparencia y relaciones sólidas con todos nuestros grupos de interés' },
-    { icon: Heart, titulo: 'Compromiso', descripcion: 'Sentimiento familiar, generosidad y humildad en cada acción' },
-    { icon: Users, titulo: 'Comunidad', descripcion: '+3,000 profesionales comprometidos con la excelencia' }
+  const valoresEmpresa = [
+    { icon: Clock, titulo: 'Experiencia', descripcion: 'Metodología probada en desarrollo de liderazgo con IA' },
+    { icon: Shield, titulo: 'Confianza', descripcion: 'Datos seguros y privacidad garantizada en cada interacción' },
+    { icon: Heart, titulo: 'Compromiso', descripcion: 'Acompañamiento personalizado durante todo tu proceso' },
+    { icon: Users, titulo: 'Comunidad', descripcion: 'Red de líderes aprendiendo y creciendo juntos' }
   ];
 
   return (
@@ -97,7 +97,7 @@ const LandingPage = () => {
             </div>
             <div>
               <h1 className="text-xl font-bold text-white tracking-tight">EvoLL</h1>
-              <p className="text-xs text-green-400 font-medium">Grupo Orenes</p>
+              <p className="text-xs text-green-400 font-medium">EvoLL AI</p>
             </div>
           </div>
           <Button 
@@ -203,13 +203,13 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Valores Orenes */}
+      {/* Valores de Liderazgo */}
       <section className="py-20 bg-gradient-to-br from-green-900 via-green-800 to-slate-900 text-white">
         <div className="container mx-auto px-6 max-w-6xl">
           <h3 className="text-4xl font-bold text-center mb-4">Únete a nuestro equipo</h3>
-          <p className="text-center text-green-200 mb-12 text-lg">Grupo Orenes - Líderes en ocio y entretenimiento</p>
+          <p className="text-center text-green-200 mb-12 text-lg">Programa de Liderazgo Evolutivo con IA</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {valoresOrenes.map((valor, index) => (
+            {valoresEmpresa.map((valor, index) => (
               <Card key={index} className="bg-white/10 border-green-500/30 backdrop-blur-sm hover-lift hover:border-green-400 transition-all">
                 <CardHeader>
                   <valor.icon className="w-12 h-12 text-green-400 mb-3" />
@@ -273,7 +273,7 @@ const LandingPage = () => {
         <div className="container mx-auto px-6 text-center">
           <h3 className="text-4xl font-bold text-white mb-6">Comienza tu transformación hoy</h3>
           <p className="text-xl text-white/95 mb-8 max-w-2xl mx-auto">
-            Únete a los líderes de Orenes que están desarrollando su máximo potencial
+            Únete a los líderes que están desarrollando su máximo potencial
           </p>
           <Button 
             size="lg" 
