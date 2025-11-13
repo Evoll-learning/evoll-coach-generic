@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Colores Orenes - Verde Corporativo */
+  --orenes-green-primary: #2D9B4E;
+  --orenes-green-dark: #1B5E32;
+  --orenes-green-light: #3DB35F;
+  --orenes-green-lighter: #4FD670;
+  --orenes-accent-gold: #F59E0B;
+  --orenes-accent-gold-dark: #D97706;
+  
+  /* Dark Theme */
+  --dark-bg-primary: #0A1628;
+  --dark-bg-secondary: #132337;
+  --dark-bg-card: #1A2F47;
+  --dark-text-primary: #E5E7EB;
+  --dark-text-secondary: #9CA3AF;
+  --dark-border: #2D3748;
+  
+  /* Light Theme */
+  --light-bg-primary: #F9FAFB;
+  --light-bg-secondary: #FFFFFF;
+  --light-text-primary: #111827;
+  --light-text-secondary: #6B7280;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--dark-bg-primary);
+  color: var(--dark-text-primary);
+}
+
+body.light-theme {
+  background: var(--light-bg-primary);
+  color: var(--light-text-primary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gradient-green {
+  background: linear-gradient(135deg, var(--orenes-green-dark) 0%, var(--orenes-green-primary) 100%);
+}
+
+.gradient-green-light {
+  background: linear-gradient(135deg, var(--orenes-green-primary) 0%, var(--orenes-green-light) 100%);
+}
+
+.gradient-text-green {
+  background: linear-gradient(135deg, var(--orenes-green-primary) 0%, var(--orenes-green-lighter) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(45, 155, 78, 0.2);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Progress Circle Animation */
+@keyframes progressCircle {
+  from {
+    stroke-dashoffset: 283;
+  }
+}
+
+.progress-circle {
+  animation: progressCircle 1.5s ease-out forwards;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--orenes-green-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--orenes-green-light);
+}
+
+/* Card Dark Theme */
+.card-dark {
+  background: var(--dark-bg-card);
+  border: 1px solid var(--dark-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Metric Cards */
+.metric-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--orenes-green-primary), var(--orenes-green-lighter));
+}
+
+/* Chart Styles */
+.recharts-wrapper {
+  font-family: 'Inter', sans-serif !important;
+}
+
+.recharts-text {
+  fill: var(--dark-text-secondary) !important;
+  font-size: 12px;
+}
+
+.recharts-legend-item-text {
+  color: var(--dark-text-primary) !important;
+}
