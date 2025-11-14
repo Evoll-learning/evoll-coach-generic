@@ -6,8 +6,9 @@ WORKDIR /app
 # Copiar package files
 COPY package*.json ./
 
-# Instalar dependencias
-RUN npm install --legacy-peer-deps
+# Limpiar cache y instalar dependencias
+RUN npm cache clean --force
+RUN npm install --legacy-peer-deps --force
 
 # Copiar el código fuente
 COPY . .
