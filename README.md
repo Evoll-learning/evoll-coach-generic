@@ -1,1 +1,1 @@
-# EvoLL Coach - White Label Platform
+# EvoLL Coach - White Label Leadership Platform
