@@ -96,8 +96,8 @@ const LandingPage = () => {
               <Sparkles className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white tracking-tight">EvoLL</h1>
-              <p className="text-xs text-green-400 font-medium">EvoLL AI</p>
+              <h1 className="text-xl font-bold text-white tracking-tight">EvoLL Coach</h1>
+              <p className="text-xs text-green-400 font-medium">Evoll AI</p>
             </div>
           </div>
           <Button 
