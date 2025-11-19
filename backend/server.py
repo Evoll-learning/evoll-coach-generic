@@ -44,6 +44,34 @@ security = HTTPBearer()
 # Create the main app
 app = FastAPI()
 
+# Add basic HTTP middleware for CORS (before any other middleware)
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import Response
+
+class SimpleCORSMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        # Handle preflight requests
+        if request.method == "OPTIONS":
+            return Response(
+                status_code=200,
+                headers={
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+                    "Access-Control-Allow-Headers": "*",
+                    "Access-Control-Allow-Credentials": "true",
+                },
+            )
+        
+        # Process request and add CORS headers to response
+        response = await call_next(request)
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "*"
+        return response
+
+app.add_middleware(SimpleCORSMiddleware)
+
 api_router = APIRouter(prefix="/api")
 
 # Variable global para el bot de Telegram
@@ -1103,14 +1131,7 @@ async def root():
 # Include router
 app.include_router(api_router)
 
-# Add CORS middleware - SIMPLEST configuration
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# CORS is now handled by SimpleCORSMiddleware at the top of the file
 
 # Servir archivos estáticos del frontend (si existen)
 frontend_build_path = ROOT_DIR.parent / 'frontend' / 'build'
