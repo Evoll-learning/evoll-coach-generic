@@ -43,6 +43,16 @@ security = HTTPBearer()
 
 # Create the main app
 app = FastAPI()
+
+# Add CORS middleware FIRST (before any routers)
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=["https://coach.evollinstitute.com", "http://localhost:3000", "*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 api_router = APIRouter(prefix="/api")
 
 # Variable global para el bot de Telegram
@@ -1101,14 +1111,6 @@ if frontend_build_path.exists():
         
         # Para rutas de React Router, devolver index.html
         return FileResponse(frontend_build_path / 'index.html')
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=["https://coach.evollinstitute.com", "http://localhost:3000", "*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 logging.basicConfig(
     level=logging.INFO,
