@@ -44,7 +44,25 @@ security = HTTPBearer()
 # Create the main app
 app = FastAPI()
 
-# Add CORS middleware FIRST (before any routers)
+# Add custom middleware to handle OPTIONS requests BEFORE CORS
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import Response as StarletteResponse
+
+class CORSOptionsMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        if request.method == "OPTIONS":
+            response = StarletteResponse()
+            response.headers["Access-Control-Allow-Origin"] = "https://coach.evollinstitute.com"
+            response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+            response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+            response.headers["Access-Control-Allow-Credentials"] = "true"
+            return response
+        response = await call_next(request)
+        return response
+
+app.add_middleware(CORSOptionsMiddleware)
+
+# Add CORS middleware AFTER OPTIONS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
