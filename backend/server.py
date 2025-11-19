@@ -256,6 +256,16 @@ PREGUNTAS_LMV = PREGUNTAS_LMV_COMPLETAS
 
 # ============= AUTH ROUTES =============
 
+# Handle preflight requests for CORS
+@api_router.options("/auth/register")
+@api_router.options("/auth/login")
+async def options_auth(response: Response):
+    response.headers["Access-Control-Allow-Origin"] = "https://coach.evollinstitute.com"
+    response.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+    response.headers["Access-Control-Allow-Credentials"] = "true"
+    return {"status": "ok"}
+
 @api_router.post("/auth/register", response_model=Token)
 async def register(user_data: UserCreate, response: Response):
     # Check if user exists in Supabase
