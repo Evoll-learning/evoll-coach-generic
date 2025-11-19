@@ -257,7 +257,7 @@ PREGUNTAS_LMV = PREGUNTAS_LMV_COMPLETAS
 # ============= AUTH ROUTES =============
 
 @api_router.post("/auth/register", response_model=Token)
-async def register(user_data: UserCreate):
+async def register(user_data: UserCreate, response: Response):
     # Check if user exists in Supabase
     existing_user = await db.find_user_by_email(user_data.email)
     if existing_user:
@@ -297,10 +297,14 @@ async def register(user_data: UserCreate):
     # Create token
     access_token = create_access_token(data={"sub": user.id})
     
+    # Add CORS headers manually
+    response.headers["Access-Control-Allow-Origin"] = "https://coach.evollinstitute.com"
+    response.headers["Access-Control-Allow-Credentials"] = "true"
+    
     return Token(access_token=access_token, token_type="bearer", user=user)
 
 @api_router.post("/auth/login", response_model=Token)
-async def login(credentials: UserLogin):
+async def login(credentials: UserLogin, response: Response):
     # Buscar usuario en Supabase
     user_data = await db.find_user_by_email(credentials.email)
     if not user_data or not verify_password(credentials.password, user_data['hashed_password']):
@@ -312,6 +316,10 @@ async def login(credentials: UserLogin):
     
     # Create token
     access_token = create_access_token(data={"sub": user_obj.id})
+    
+    # Add CORS headers manually
+    response.headers["Access-Control-Allow-Origin"] = "https://coach.evollinstitute.com"
+    response.headers["Access-Control-Allow-Credentials"] = "true"
     
     return Token(access_token=access_token, token_type="bearer", user=user_obj)
 
