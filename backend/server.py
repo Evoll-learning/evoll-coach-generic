@@ -44,33 +44,6 @@ security = HTTPBearer()
 # Create the main app
 app = FastAPI()
 
-# Add custom middleware to handle OPTIONS requests BEFORE CORS
-from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.responses import Response as StarletteResponse
-
-class CORSOptionsMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request, call_next):
-        if request.method == "OPTIONS":
-            response = StarletteResponse()
-            response.headers["Access-Control-Allow-Origin"] = "https://coach.evollinstitute.com"
-            response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
-            response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
-            response.headers["Access-Control-Allow-Credentials"] = "true"
-            return response
-        response = await call_next(request)
-        return response
-
-app.add_middleware(CORSOptionsMiddleware)
-
-# Add CORS middleware AFTER OPTIONS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=["https://coach.evollinstitute.com", "http://localhost:3000", "*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 api_router = APIRouter(prefix="/api")
 
 # Variable global para el bot de Telegram
@@ -1129,6 +1102,15 @@ async def root():
 
 # Include router
 app.include_router(api_router)
+
+# Add CORS middleware AFTER including router (like Orenes)
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=["https://coach.evollinstitute.com", "http://localhost:3000", "*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Servir archivos estáticos del frontend (si existen)
 frontend_build_path = ROOT_DIR.parent / 'frontend' / 'build'
