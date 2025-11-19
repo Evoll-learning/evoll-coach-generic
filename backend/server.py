@@ -1103,11 +1103,11 @@ async def root():
 # Include router
 app.include_router(api_router)
 
-# Add CORS middleware AFTER including router (like Orenes)
+# Add CORS middleware - SIMPLEST configuration
 app.add_middleware(
     CORSMiddleware,
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_origins=["https://coach.evollinstitute.com", "http://localhost:3000", "*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
