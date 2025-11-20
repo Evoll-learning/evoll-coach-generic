@@ -26,7 +26,7 @@ export const useElevenLabs = () => {
       console.log('🚀 Iniciando ElevenLabs Conversational AI...');
 
       const apiKey = process.env.REACT_APP_ELEVENLABS_API_KEY;
-      const agentId = process.env.REACT_APP_ELEVENLABS_AGENT_ID || 'agent_4001k9zkfwcze1msnex4nakwa5am';
+      const agentId = process.env.REACT_APP_ELEVENLABS_AGENT_ID || 'agent_7001k9s8hn8ffc0sfepa6nh516wm';
 
       if (!apiKey) {
         throw new Error('ElevenLabs API key no configurada');

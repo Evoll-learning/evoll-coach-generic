@@ -43,35 +43,6 @@ security = HTTPBearer()
 
 # Create the main app
 app = FastAPI()
-
-# Add basic HTTP middleware for CORS (before any other middleware)
-from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.responses import Response
-
-class SimpleCORSMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request, call_next):
-        # Handle preflight requests
-        if request.method == "OPTIONS":
-            return Response(
-                status_code=200,
-                headers={
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-                    "Access-Control-Allow-Headers": "*",
-                    "Access-Control-Allow-Credentials": "true",
-                },
-            )
-        
-        # Process request and add CORS headers to response
-        response = await call_next(request)
-        response.headers["Access-Control-Allow-Origin"] = "*"
-        response.headers["Access-Control-Allow-Credentials"] = "true"
-        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
-        response.headers["Access-Control-Allow-Headers"] = "*"
-        return response
-
-app.add_middleware(SimpleCORSMiddleware)
-
 api_router = APIRouter(prefix="/api")
 
 # Variable global para el bot de Telegram
@@ -275,18 +246,8 @@ PREGUNTAS_LMV = PREGUNTAS_LMV_COMPLETAS
 
 # ============= AUTH ROUTES =============
 
-# Handle preflight requests for CORS
-@api_router.options("/auth/register")
-@api_router.options("/auth/login")
-async def options_auth(response: Response):
-    response.headers["Access-Control-Allow-Origin"] = "https://coach.evollinstitute.com"
-    response.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
-    response.headers["Access-Control-Allow-Credentials"] = "true"
-    return {"status": "ok"}
-
 @api_router.post("/auth/register", response_model=Token)
-async def register(user_data: UserCreate, response: Response):
+async def register(user_data: UserCreate):
     # Check if user exists in Supabase
     existing_user = await db.find_user_by_email(user_data.email)
     if existing_user:
@@ -326,14 +287,10 @@ async def register(user_data: UserCreate, response: Response):
     # Create token
     access_token = create_access_token(data={"sub": user.id})
     
-    # Add CORS headers manually
-    response.headers["Access-Control-Allow-Origin"] = "https://coach.evollinstitute.com"
-    response.headers["Access-Control-Allow-Credentials"] = "true"
-    
     return Token(access_token=access_token, token_type="bearer", user=user)
 
 @api_router.post("/auth/login", response_model=Token)
-async def login(credentials: UserLogin, response: Response):
+async def login(credentials: UserLogin):
     # Buscar usuario en Supabase
     user_data = await db.find_user_by_email(credentials.email)
     if not user_data or not verify_password(credentials.password, user_data['hashed_password']):
@@ -345,10 +302,6 @@ async def login(credentials: UserLogin, response: Response):
     
     # Create token
     access_token = create_access_token(data={"sub": user_obj.id})
-    
-    # Add CORS headers manually
-    response.headers["Access-Control-Allow-Origin"] = "https://coach.evollinstitute.com"
-    response.headers["Access-Control-Allow-Credentials"] = "true"
     
     return Token(access_token=access_token, token_type="bearer", user=user_obj)
 
@@ -1131,8 +1084,6 @@ async def root():
 # Include router
 app.include_router(api_router)
 
-# CORS is now handled by SimpleCORSMiddleware at the top of the file
-
 # Servir archivos estáticos del frontend (si existen)
 frontend_build_path = ROOT_DIR.parent / 'frontend' / 'build'
 if frontend_build_path.exists():
@@ -1150,6 +1101,14 @@ if frontend_build_path.exists():
         
         # Para rutas de React Router, devolver index.html
         return FileResponse(frontend_build_path / 'index.html')
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 logging.basicConfig(
     level=logging.INFO,

@@ -189,7 +189,7 @@ const PerfilPage = () => {
                 <div className="space-y-2">
                   <p className="text-green-400 font-semibold">📱 Cómo vincular tu Telegram:</p>
                   <ol className="text-gray-300 text-sm space-y-2 ml-4">
-                    <li>1. Abre Telegram y busca: <code className="bg-slate-700 px-2 py-1 rounded text-green-400 font-mono">@EvoLL_Coach_Bot</code></li>
+                    <li>1. Abre Telegram y busca: <code className="bg-slate-700 px-2 py-1 rounded text-green-400 font-mono">@Evoll_Orenes_Bot</code></li>
                     <li>2. Inicia conversación enviando: <code className="bg-slate-700 px-2 py-1 rounded text-green-400 font-mono">/start</code></li>
                     <li>3. El bot te dará un código como: <code className="bg-slate-700 px-2 py-1 rounded text-yellow-400 font-mono">EVOLL-123456789</code></li>
                     <li>4. Copia ese código y pégalo aquí abajo:</li>

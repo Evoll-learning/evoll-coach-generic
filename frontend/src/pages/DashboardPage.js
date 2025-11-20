@@ -275,7 +275,7 @@ const DashboardPage = () => {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-white">EvoLL</h1>
-                <p className="text-xs text-gray-400">EvoLL AI</p>
+                <p className="text-xs text-gray-400">Evoll AI</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">

@@ -79,7 +79,7 @@ const LandingPage = () => {
     }
   ];
 
-  const valoresEmpresa = [
+  const valoresEvoLL = [
     { icon: Clock, titulo: 'Experiencia', descripcion: 'Metodología probada en desarrollo de liderazgo con IA' },
     { icon: Shield, titulo: 'Confianza', descripcion: 'Datos seguros y privacidad garantizada en cada interacción' },
     { icon: Heart, titulo: 'Compromiso', descripcion: 'Acompañamiento personalizado durante todo tu proceso' },
@@ -96,7 +96,7 @@ const LandingPage = () => {
               <Sparkles className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white tracking-tight">EvoLL Coach</h1>
+              <h1 className="text-xl font-bold text-white tracking-tight">EvoLL</h1>
               <p className="text-xs text-green-400 font-medium">Evoll AI</p>
             </div>
           </div>
@@ -203,13 +203,13 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Valores de Liderazgo */}
+      {/* Únete a nuestro equipo */}
       <section className="py-20 bg-gradient-to-br from-green-900 via-green-800 to-slate-900 text-white">
         <div className="container mx-auto px-6 max-w-6xl">
           <h3 className="text-4xl font-bold text-center mb-4">Únete a nuestro equipo</h3>
           <p className="text-center text-green-200 mb-12 text-lg">Programa de Liderazgo Evolutivo con IA</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {valoresEmpresa.map((valor, index) => (
+            {valoresEvoLL.map((valor, index) => (
               <Card key={index} className="bg-white/10 border-green-500/30 backdrop-blur-sm hover-lift hover:border-green-400 transition-all">
                 <CardHeader>
                   <valor.icon className="w-12 h-12 text-green-400 mb-3" />
